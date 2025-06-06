@@ -1,0 +1,68 @@
+Comandos usados practica 1
+
+sudo dnf update -y && sudo dnf upgrade -y
+
+sudo dnf repolist o sudo dnf repolist all 
+
+git clone 
+
+make install 
+
+/.bashtop (para ejecutar el bashtop en RHLE)
+
+sudo dnf remove -y bashtop 
+
+make uninstall 
+
+rm -rf ~/.config/bashtop
+
+rm -rf /home/francisemilsantana/bashtop
+
+Comandos usados practica 2
+
+crontab -e (recordando la I para instesertar y el :wq para guardar y salir)
+
+0 23 * * * yum -y update 
+
+0 3  * * * /sbin/shutdown -r now 
+
+ls /tmp 
+
+systemctl enable atd 
+
+systemctl star atd 
+
+echo "rm -rf /tmp/*" at now + 1 minute 
+
+Comandos usados practica 3
+
+lsblk 
+
+sudo fdisk /dev/sdb
+clave
+
+m (este seria para ver los comandos disponibles en este apartado)
+
+n
+
+p
+
+w (este es para guardar)
+
+sudo mkfs.ext4 /dev/sdb1 
+
+mkdir ~/Desktop/disco20GB
+
+cd Desktop 
+
+ls 
+
+sudo mount /dev/sdb1 /home/francisemilsantana/Desktop/disco20GB
+
+touch AdrianAlcantara.txt
+
+umount /home/francisemilsantana/Desktop/disco20GB
+
+sudo mount /dev/ sdb1 /mnt
+
+clear 

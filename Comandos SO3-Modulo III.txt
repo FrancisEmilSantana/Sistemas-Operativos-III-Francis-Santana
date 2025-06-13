@@ -1,0 +1,94 @@
+Comandos usados practica 1
+
+Grub
+
+sudo nano /etc/default/grub
+(editamos el achivo en la linea que dice GRUB_TIMEOUT=5
+
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+luego reiniciamos en caso de su preferencia utilice el comando (reboot)
+
+recuperar contraseña de usuario root
+
+mount -o remount,rw /sysroot
+
+chroot /sysroot
+
+passwd
+
+touch /.autorelabel
+
+exit
+
+exit
+
+Comandos usados practica 2
+
+nano (nombre del archivo a crear)
+
+chmod +x (nombre del archivo) comando  
+
+cat (para ver el contenido del archivo)
+
+Primer Script 
+
+#!/bin/bash
+
+fecha=$(date +"%d-%m-%Y_%H-%M")
+
+archivo="/home/francisemilsantana/backup_$fecha.ta.gz"
+
+tar -czf "$archivo" /home/francisemilsantana 2>/dev/null
+
+echo "backup creado en: $archivo"
+
+Segundo script 
+
+#!/bin/bash
+
+read -p "Nombre del archivo: " nombre
+
+ruta="/home/francisemilsantana/Desktop/${nombrer}.txt
+
+ip a> "$ruta" 2>/dev/null
+
+echo "Archivo guardado en: $ruta"  
+
+Comandos usados practica 3
+
+ip a o if config para verificar la ip de la maquina virtual 
+
+sudo systemctl enable sshd --now 
+
+sudo firewall-cmd --permanent --add-service=ssh 
+
+sudo firewall-cmd --reload
+
+CMD-maquina host (windows)
+
+esto es sin las llaves generadas
+ssh Usuario@ip de la maquina 
+contraseña
+
+ssh-keygen (en caso de no definir la ruta se guardara en C:\USERS\(tu usuario)\.ssh
+
+notepad C:\Users\tu_usuario\.ssh\(nombre de la llave)
+
+
+exit (parara salir de la conexion 
+
+Maquina Linux
+
+mkdir -p ~/.ssh
+
+nano ~/.ssh/authorized_keys (pegamos la key dentro)
+
+chmod 700 ~/.ssh
+
+chmod 600 ~/.ssh/authorized_keys
+
+ssh usuario@ ip de la maquina 
+
+
+

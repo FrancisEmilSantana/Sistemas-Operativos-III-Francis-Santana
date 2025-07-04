@@ -1,0 +1,142 @@
+Comandos usados practica 1
+mkdir /home/francisemilsantana/pruebasincro
+
+cd pruebasincro
+
+touch prueba{1..100}.txt
+
+ls
+
+dnf install rsync
+
+rsync -avz /home/francisemilsantana/pruebasincro francisemilsantana@10.0.0.66:/home/francisemilsantana/pruebasincro
+
+yes 
+
+verificar transferencia en la maquina clon 
+
+ssh-keygen -t rsa
+
+ssh-copy-id francisemilsantana@10.0.0.66
+
+nano /home/francisemilsantana/rsync_sync.sh
+
+#!/bin/bash
+sync -avz /home/francisemilsantana/pruebasincro francisemilsantana@10.0.0.67:/home/francisemilsantana/pruebasincro 
+
+chmod +x rsync_sync.sh
+
+crontab -e 
+
+i
+
+* * * * * /home/francisemilsantana/rsync_sync.sh
+esc
+:wq
+
+touch /home/francisemilsantana/pruebasincro/hola.txt
+
+ls /home/francisemilsantana/pruebasincro/hola.txt
+
+
+
+Comandos usados practica 2
+
+sudo dnf install -y pcs pacemaker crosync fence-agents-all 
+
+systemctl enable pcsd
+systemctl start pcsd
+
+passwd hacluster en ambos lados 
+
+firewall-cmd --permanent --add-service=high-availability
+
+fireewall-cmd --reload 
+
+sudo pcs host auth 10.0.0.67 10.0.0.66
+
+pcs cluster setup SO3Adrian 10.0.0.67 10.0.0.66
+
+pcs cluster start --all 
+
+pcs cluster enable --all 
+
+sudo pcs cluster 
+
+nano /etc/corosync/corosync.conf
+agregar la ip 10.0.0.66
+
+sudo pcs status
+
+pcs resource create SO3 ocf:heartbeat:IPaddr2 ip=10.0.0.100 cirdr_netmask=24 op monitor interval=30s 
+
+pcs status 
+
+pcs properety set stonith-enable=false
+pcs status 
+
+Comandos usados practica 3
+
+sudo dnf install httpd -y en ambas maquinas 
+
+cd /var/www/html
+nano Index.html
+
+<html>
+
+<h1>Este es el servidor 1 </h1>
+
+</html>
+
+systemctl enable httpd
+systemctl start httpd 
+systemctl status httpd 
+
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permaneent --add-port=443/tcp
+firewall-cmd --reload 
+
+cd ../../..
+intall keepalived -y
+
+cd /etc/keepalived/
+ls
+
+rm -rf keepalived.conf 
+
+nano keepalived.conf 
+
+configuracion 
+
+vrrp_instance VI_1 {
+state MASTER
+interface enp0s3
+Virtual_router_id 51
+priority 100
+advert_int 1 
+authentication {
+auth type PASS
+auth pass 1234
+}
+Virtual ipaddress {
+10.0.0.100
+}
+}
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+

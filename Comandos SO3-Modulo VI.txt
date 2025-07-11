@@ -75,20 +75,32 @@ dnf install -y google-authenticator
 
 google-authenticator
 
-nano /etc/pam.d/sshd
-
-auth required pam_google_authenticator.so
-
 nano /etc/ssh/sshd_config
+# Configuracion basica
+Port 22
+PermitRootLogin no
+PubkeyAuthentication yes
+PassworkAuthentication yes
+ChallengenReponseAuthentication yes
+UsePAM yes
 
-ChallengeReponseAuthentication yes 
-AuthenticationMethods publickey,passowrd,keyboard-interactive
+# Asegura que se permita el uso de authorized_keys
+AuthorizedKeysFile .ssh/authorized_keys
 
-systemctl restart sshd 
+# Seguridad
+PermitEmptyPassword no
+AllowTcpForwarding no 
+X11Forwarding no 
+# Authenticacion
+#Logs
+LogsLevel VERBOSE
 
-systemctl status sshd 
+# Conexion viva
+ClientAliveInterval 120
+ClientAliveCountMax 2
 
-ssh francisemilsantana@10.0.0.67
+nano /etc/pam.d/sshd
+auth required pam_google_authenticator.so nullok 
 
 
 

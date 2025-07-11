@@ -1,0 +1,90 @@
+Comandos usados practica 1
+
+dnf install gnupg2 -y 
+
+mkdir /home/francisemilsantana/cifrado 
+
+cd /home/francisemilsantana/cifrado
+
+echo "Acceso denegado para personal no autorizado" > secreto.txt
+
+ls
+
+gpg2 --full-generate-key
+ 
+gpg2 --list-key 
+
+gpg2 -e -r francis secreto.txt
+
+ls 
+
+cat secreto.txt.gpg
+
+gpg2 -d secreto.txt.gpg > secreto_decifrado.txt 
+
+ls
+
+cat secreto_decifrado.txt 
+
+Comandos usados practica 2
+
+dnf install httpd vsftpd openssh-server -y 
+
+systemctl enable --now httpd vsftpd sshd 
+
+systemctl status httpd 
+
+systemctl status vsftpd 
+
+systemctl status sshd 
+
+iptables -A INPUT -p tcp --dport 80 -j DROP
+
+iptables -A INPUT -p tcp --dport 21 -j DROP
+
+iptables -A INPUT -p tcp --dport 22 -j DROP
+
+iptables -L -n --line-numbers 
+
+iptables -D INPUT -p tcp --dport 80 -j DROP
+
+iptables -D INPUT -p tcp --dport 22 -j DROP
+
+iptables -D INPUT -p tcp --dport 21 -j DROP
+
+iptables -L -n --line-numbers 
+
+firewall-cmd --permanent --remove-service=http
+firewall-cmd --permanent --remove-service=ftp
+firewall-cmd --permanent --remove-service=ssh
+firewall-cmd --reload
+
+firewall-cmd --list-all 
+
+firewall-cmd --permanent --add-service=http
+firewall-cmd --permanent --add-service=ftp
+firewall-cmd --permanent --add-service=ssh
+firewall-cmd --reload
+
+firewall-cmd --list-all 
+
+Comandos usados practica 3
+
+Comandos usados practica 4
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+

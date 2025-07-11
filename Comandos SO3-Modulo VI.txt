@@ -71,7 +71,24 @@ firewall-cmd --list-all
 Comandos usados practica 3
 
 Comandos usados practica 4
+dnf install -y google-authenticator
 
+google-authenticator
+
+nano /etc/pam.d/sshd
+
+auth required pam_google_authenticator.so
+
+nano /etc/ssh/sshd_config
+
+ChallengeReponseAuthentication yes 
+AuthenticationMethods publickey,passowrd,keyboard-interactive
+
+systemctl restart sshd 
+
+systemctl status sshd 
+
+ssh francisemilsantana@10.0.0.67
 
 
 

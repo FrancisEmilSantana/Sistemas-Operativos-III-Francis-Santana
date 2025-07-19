@@ -1,0 +1,113 @@
+Comandos usados practica 1
+
+sudo dnf install -y nfs-utils
+sudo systemctl enable nfs-server
+sudo systemctl start nfs-server
+sudo systemctl enable rpcbind
+sudo systemctl start rpcbind
+
+sudo mkdir -p /OS3
+cd /OS3
+
+touch Adrian_{1..100}.txt
+
+chmod 755 /SO3 
+chown nobody:nobody /SO3
+chmod 644 /SO3/*
+
+nano /etc/exports 
+/SO3 10.0.0.65(rw,sync,no_root_squash,no_subtree_check)"  
+
+sudo firewall-cmd --permanent --add-service=nfs
+sudo firewall-cmd --permanent --add-service=rpc-bind
+sudo firewall-cmd --permanent --add-service=mountd
+sudo firewall-cmd --reload
+
+Configuracion en la maquina cliente
+
+sudo dnf install -y nfs-utils
+sudo systemctl enable rpcbind
+sudo systemctl start rpcbind
+
+sudo mkdir -p /mnt/nfs-share
+
+sudo mount -t nfs 10.0.0.67:/OS3 /mnt/nfs-share
+ls -la /mnt/nfs-share
+
+sudo echo "10.0.0.67:/OS3 /mnt/nfs-share nfs defaults 0 0" >> /etc/fstab
+
+sudo umount /mnt/nfs-share
+sudo mount -a
+ls -la /mnt/nfs-share
+
+df -h | grep nfs 
+
+Comandos usados practica 2
+
+dnf install -y samba 
+systemctl enable --now smb nmb 
+
+mkdir -p /samba 
+chown nobody:nobody /samba
+chmod 0775 /samba 
+cd /samba 
+
+touch adrian{1..100}.txt
+ls
+
+chown -R francisemilsantana:francisemilsantana *
+ls
+
+chmod 666 * 
+ls -l
+
+cd 
+
+groupadd labSO3
+smbppasswd -a francisemilsantana
+
+usermod -aG labSO3 francisemilsantana
+
+chown -R :labSO3 /samba
+nano /etc/samba/smb.conf
+
+[samba]
+path = /samba
+valid users = @labSO3
+guest ok = no 
+writable = yes 
+browsable = yes
+create mask = 0775
+direcctory mask = 0775
+
+systemctl restart smb nmb
+
+firewall-cmd --add-port=137/tcp --permanent 
+firewall-cmd --add-port=139/tcp --permanent
+firewall-cmd --add-port=445/tcp --permanent
+firewall-cmd --reload 
+
+setenforce 0 
+
+Comandos usados practica 3
+
+
+
+Comandos usados practica 4
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+

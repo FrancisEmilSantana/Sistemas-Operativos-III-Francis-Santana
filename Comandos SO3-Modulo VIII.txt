@@ -1,0 +1,111 @@
+Comandos usados practica 1
+
+Instalar docker 
+
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo systemctl enable docker 
+
+sudo docker run hello-world 
+
+sudo docker pull ngnix 
+
+sudo mkdir -p /home/website
+
+sudo docker run -d -p 8888:80 -v /home/website:/usr/share/nginx/html/ --name my-ngnix-container nginx 
+
+sudo tee /home/website/index.html > /dev/null <<'EOF'
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Página Personal</title>
+</head>
+<body>
+  <h1>Nombre: Francis Emil Santana</h1>
+  <h2>Matrícula: 2024-1365</h2>
+</body>
+</html>
+
+EOF
+
+sudo chmod 644 /home/website/index.html
+sudo chown root:root /home/website/index.html
+
+Comandos usados practica 2
+
+docker pull portainer/portainer-ce
+
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+
+
+Comandos usados practica 3
+
+sudo dnf install -y docker-compose-plugin 
+
+docker compose version 
+
+nano docker-compose.yml 
+
+    version: '3.8'
+
+    services:
+      db:
+        image: mysql:5.7
+        container_name: wordpress_db
+        environment:
+          MYSQL_ROOT_PASSWORD: your_mysql_root_password (cambiar por una contraseña segura)
+          MYSQL_DATABASE: wordpress
+          MYSQL_USER: wordpress_user
+          MYSQL_PASSWORD: wordpress_password
+        volumes:
+          - db_data:/var/lib/mysql
+        restart: always
+
+      wordpress:
+        depends_on:
+          - db
+        image: wordpress:latest
+        container_name: wordpress_app
+        ports:
+          - "80:80"  (en caso de que este siendo utilizados estos puertos cambiarlos)
+        environment:
+          WORDPRESS_DB_HOST: db:3306
+          WORDPRESS_DB_USER: wordpress_user
+          WORDPRESS_DB_PASSWORD: wordpress_password
+          WORDPRESS_DB_NAME: wordpress
+        volumes:
+          - wordpress_data:/var/www/html
+        restart: always
+
+    volumes:
+      db_data:
+      wordpress_data:
+
+sudo docker compose up -d 
+
+https://172.18.0.3:80
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+

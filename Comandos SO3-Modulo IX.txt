@@ -1,0 +1,153 @@
+Comandos usados practica 1
+
+sudo dnf install perl perl-CPAN perl-App-cpanminus perl-Digest-SHA perl-Net-SSLeay perl-Data-Dumper
+
+wget https://github.com/webmin/webmin/releases/download/2.105/webmin-2.105-1.noarch.rpm
+
+sudo dnf install ./webmin-2.105-1.noarch.rpm
+
+sudo systemctl start webmin
+
+sudo systemctl enable webmin
+
+sudo firewall-cmd --permanent --add-port=10000/tcp
+
+sudo firewall-cmd --reload
+
+root 
+
+Comandos usados practica 2
+
+sudo yum install -y yum-utils
+
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+sudo yum -y install terraform
+
+ssh-keygen -t rsa -b 
+
+mkdir terraform 
+
+cd /home/francisemilsantana/terraform 
+
+nano main.tf 
+
+terraform {
+  required_providers {
+   digitalocean = {
+     source = "digitalocean/digitalocean"
+     version = ">= 1.0.0"
+    }
+  }
+}
+
+provider "digitalocean" {
+token = "TU_API_TOKEN_DE_DIGITALOCEAN"
+}
+
+resource "digitalocean_droplet" "os3vm" {
+ image     = "ubuntu-22-04-x64"
+ name      = "OS3vm"
+ region    = "nyc1"
+ size      = "s-1vcpu-1gb"
+ ssh_keys  = [" "]
+
+}
+
+terraform init 
+
+terraform plan 
+
+terraform applay 
+
+yes 
+
+
+
+Comandos usados practica 3
+
+sudo dnf update -y 
+
+sudo subscription-manager repos --enable codeready-builder-for-rhel-9-$(arch)-rpms
+
+sudo dnf install \https://dl.fedoraproject.org/pub/epel/epelrelease-latest-9.noarch.rpm
+
+sudo dnf install ansible -y 
+
+ansible --version 
+
+sudo dnf install python3 python3-pip -y 
+
+sudo pip3 install pywinrm 
+
+sudo mkdir /home/ansible
+
+ssh-keygen -t rsa 
+
+Ruta /home/ansible/.ssh/id_rsa
+
+cat ~/.ssh/id_rsa.pub
+
+ssh-copy-id ansible@ip de digital ocean 
+
+sudo nano /etc/ansible/hosts
+
+[win]
+ansible2 ansible_host= ip de windows ansible_user=ansible ansible_password=Ansiblepass ansible_connection=winrm transport=ssl ansible_port=5986 ansible_winrm_transport=basic ansible_winrm_server_cert_validation=ingore
+
+[linux]
+ansible1 ansible_host= ip de digital ocean ansible_user=root ansible_ssh_private_key_file=/home/ansible/.ssh/id_rsa.pub
+
+ansible win -m win_ping 
+
+ansible linux -m ping 
+
+En maquina windows PowerShell
+
+Enable-PS$Remoting -Force
+
+Set-Item WSman:\localhost\Service\Auth\basic -value $true
+
+Set-Item WSman:\localhost\Service\Client\TrustedHosts -value ">"
+
+Set-Item WSman:\localhost\Service\Auth\CredSSP -value $false
+
+
+
+Restart-Service winRM
+
+en Digital Ocean 
+
+sudo dnf install python3 python3-pip -y 
+
+sudo pip3 install pywinrm
+
+sudo adduser ansible 
+
+sudo passwd 12345678
+
+sudo usermod -aG sudo ansible
+
+ssh-keygen -t rsa 
+
+chmod 700 ~/.ssh
+
+chmod 600 ~/.ssh/authorized_keys
+
+mkdir /home/ansible/.ssh
+
+sudo nano /home/ansible/.ssh/authorized_keys (Pegar llave publica) 
+
+Comandos usados practica 4
+
+
+ 
+
+
+
+
+
+
+
+
+
